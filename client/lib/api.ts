@@ -1,7 +1,7 @@
 import { crudData } from "./utils";
 
 export async function fetchTasks() {
-   return await crudData("getTask")
+  return await crudData("getTask")
 }
 export async function createTask(taskData: any) {
   return await crudData("createTask", "POST",taskData)

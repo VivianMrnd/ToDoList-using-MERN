@@ -152,8 +152,8 @@ export default function TodoList() {
     <Card className="shadow-lg border-0 bg-white/90 backdrop-blur-sm dark:bg-slate-950/90">
       <CardHeader className="pb-3">
         <CardTitle className="text-2xl font-bold flex items-center gap-2">
-          <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">TaskMaster</span>
-          <span className="text-sm font-normal text-muted-foreground">My Todo List so I won't forget!</span>
+          <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Vivian's TaskMaster</span>
+          <span className="text-sm font-normal text-muted-foreground">List what is needed to be done!</span>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
