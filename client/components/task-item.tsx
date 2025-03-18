@@ -3,13 +3,14 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { format } from "date-fns"
-import { Trash2, Edit2, Save, X, Calendar, AlertCircle } from "lucide-react"
+import { Trash2, Edit2, Save, X, Calendar, AlertCircle } from 'lucide-react'
 import { cn } from "@/lib/utils"
 import type { Task } from "@/components/todo-list"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { updateTask } from "@/lib/api"
 
 interface TaskItemProps {
   task: Task
@@ -23,17 +24,27 @@ export default function TaskItem({ task, onToggle, onDelete, categories, priorit
   const [isEditing, setIsEditing] = useState(false)
   const [editedTitle, setEditedTitle] = useState(task.title)
 
+  // Find category and priority colors
   const categoryColor = categories.find((c) => c.name === task.category)?.color || "bg-gray-500"
   const priorityColor = priorities.find((p) => p.name === task.priority)?.color || "bg-gray-500"
 
+  // Check if task is overdue
   const isOverdue = task.dueDate && new Date(task.dueDate) < new Date() && !task.completed
 
   const handleEdit = () => {
     setIsEditing(true)
   }
 
-  const handleSave = () => {
-    setIsEditing(false)
+  const handleSave = async () => {
+    if (editedTitle.trim() === "") return handleCancel();
+    
+    try {
+      await updateTask(task.id, { title: editedTitle });
+      task.title = editedTitle;
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Failed to update task title", error);
+    }
   }
 
   const handleCancel = () => {
@@ -121,4 +132,3 @@ export default function TaskItem({ task, onToggle, onDelete, categories, priorit
     </motion.li>
   )
 }
-
