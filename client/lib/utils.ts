@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000/api";
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -8,7 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export async function crudData(endpoint: string, method?: string, data?: any, id?: string) {
   try {
-    const url = id ? `${API_BASE_URL}/${endpoint}/${id}` : `${API_BASE_URL}/${endpoint}`;
+    const url = id ? `${API_BASE_URL}/${endpoint}?id=${id}` : `${API_BASE_URL}/${endpoint}`;
     const options: RequestInit = {
       method: method || "GET", 
       ...(method && method !== "GET" ? {
